@@ -1,8 +1,34 @@
 # Terminal ChatGPT client
+First of all you will need to have an account on https://platform.openai.com/ and an API Key created
 
-Python script client consumer of the OpenAI API from the terminal. You never need to leave terminal to consult ChatGPT makes your coding faster. It allows you to pass a question as an argument (Non converstation mode) or start the client normally in a (converstation mode)
+- Under API Keys -> Create new secret key
 
-## Non-converstation mode. Pass your question as an argument
+Once you have the key export it as an enviromental variable
+```bash
+export api_key=<YOUR_API_KEY>
+```
+
+Ideally you want to include this in your home directory bash or other shell profile as a permanent solution
+
+Create bash_profile file in your home directory if it does not exist and add the export
+
+```bash`
+$ vi ~/.bash_profile
+export api_key=<YOUR_API_KEY>
+```
+
+Save the file and source it.
+
+```bash
+$ source ~/.bash_profile
+```
+
+## How does it work
+
+
+This python script client is a consumer of the OpenAI API from the terminal. You never need to leave terminal to consult ChatGPT anymore. So if a terminal is your normal habitat this client will make your coding so much faster. It also allows you to pass a question as an argument (Non converstation mode) or you can start the client normally in a (converstation mode)
+
+## Non-converstation mode accepts question as an argument.
 
 ```
 $ gpt how to make tea in two steps?
@@ -25,9 +51,11 @@ $ gpt
 
 <span style="color:yellow">ChatGPT: </span>Alright, have a great day! Goodbye!
 
-<span style="color:cyan">Ivan: </span>q
+<span style="color:cyan">Ivan: </span> {ENTER}
 
 Exiting client ...
+
+**When you have no more questions just press {ENTER} or {CTRL_C} to exit the client**
 
 # To install the client
 You will need:
@@ -52,3 +80,14 @@ Check on author github how to install the tool on different platforms. I have on
 ```bash
 pip3 install -r requirements.txt
 ```
+
+## Copy this script to your PATH
+
+To make this client script system-wide available copy it somewhere to PATH
+
+```bash
+$ sudo cp gpt /usr/local/bin/
+```
+
+## That's it
+Hope you enjoy & like it.
