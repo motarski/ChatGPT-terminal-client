@@ -17,13 +17,16 @@ def markdown_check_response():
         messages.append({"role": "assistant", "content": answer})
 
 # Handle CTRL_C grafecully
-def signal_handler(sig, frame):
-    client_exit()
+def signal_handler(sig):
+    client_exit(sig)
     sys.exit(0)
 
 # Client exit
-def client_exit():
-    print('Exiting Client ...')
+def client_exit(sig=None):
+    if sig:
+        print(f'\nExiting Client ...')
+    else:
+        print('Exiting Client...')
 
 # Define init client variables
 you = subprocess.check_output(['whoami']).decode('utf-8').strip()
