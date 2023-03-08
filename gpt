@@ -7,18 +7,23 @@ from os import environ
 # Needed for some linux terminals when using colorama
 init()
 
-# Markdown check and response    
+# Markdown check and response
 def markdown_check_response():
     if markdown.markdown(answer) != answer:
-        subprocess.run(["mdcat"], input=f"{Fore.YELLOW}ChatGPT:{Fore.RESET} {answer}".encode())
+        subprocess.run(
+            ["mdcat"], input=f"{Fore.YELLOW}ChatGPT:{Fore.RESET} {answer}".encode())
     else:
         print(f"{Fore.GREEN}ChatGPT: {Style.RESET_ALL}{answer}")
         messages.append({"role": "assistant", "content": answer})
 
 # Handle CTRL_C grafecully
 def signal_handler(sig, frame):
-    print('\nExiting Client ...')
+    client_exit()
     sys.exit(0)
+
+# Client exit
+def client_exit():
+    print('Exiting Client ...')
 
 # Define init client variables
 you = subprocess.check_output(['whoami']).decode('utf-8').strip()
@@ -26,13 +31,14 @@ you = you.capitalize()
 gpt_model = 'gpt-3.5-turbo'
 signal.signal(signal.SIGINT, signal_handler)
 openai.api_key = environ['api_key']
-messages = [{"role": "system", "content": "You are a helpful assistant."},]
+messages = [{"role": "system", "content": "You are a helpful assistant."}, ]
 
 # Check if you passed an argument. Starting non-conversation mode
 if len(sys.argv) > 1:
     message = ' '.join(sys.argv[1:])
     messages.append({"role": "user", "content": message})
-    chat_completion = openai.ChatCompletion.create(model=f"{gpt_model}",messages=messages)
+    chat_completion = openai.ChatCompletion.create(
+        model=f"{gpt_model}", messages=messages)
     answer = chat_completion.choices[0].message.content
     markdown_check_response()
 else:
@@ -41,15 +47,10 @@ else:
     while message:
         message = input(Fore.CYAN + f"{you}: " + Style.RESET_ALL)
         if message == '':
-            print("Exiting client ...")
+            client_exit()
         elif message:
-            messages.append(
-                {"role": "user", "content": message},
-            )
+            messages.append({"role": "user", "content": message},)
             chat_completion = openai.ChatCompletion.create(
-                model=f"{gpt_model}",
-                messages=messages
-            )
+                model=f"{gpt_model}", messages=messages)
             answer = chat_completion.choices[0].message.content
             markdown_check_response()
-
