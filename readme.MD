@@ -1,4 +1,4 @@
-# Terminal ChatGPT client
+# ChatGPT terminal client
 First of all you will need to have an account on https://platform.openai.com/ and an API Key created
 
 - Under API Keys -> Create new secret key
