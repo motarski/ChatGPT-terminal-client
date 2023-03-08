@@ -17,7 +17,7 @@ def markdown_check_response():
         messages.append({"role": "assistant", "content": answer})
 
 # Handle CTRL_C grafecully
-def signal_handler(sig):
+def signal_handler(sig, frame):
     client_exit(sig)
     sys.exit(0)
 
@@ -29,8 +29,7 @@ def client_exit(sig=None):
         print('Exiting Client...')
 
 # Define init client variables
-you = subprocess.check_output(['whoami']).decode('utf-8').strip()
-you = you.capitalize()
+you = subprocess.check_output(['whoami']).decode('utf-8').strip().capitalize()
 gpt_model = 'gpt-3.5-turbo'
 signal.signal(signal.SIGINT, signal_handler)
 openai.api_key = environ['api_key']
