@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+import openai, sys, signal, markdown, subprocess
+from colorama import Fore, Style, init
+from os import environ
+
+# Needed for some linux terminals when using colorama
+init()
+
+# Markdown check and response    
+def markdown_check_response():
+    if markdown.markdown(answer) != answer:
+        subprocess.run(["mdcat"], input=f"{Fore.YELLOW}ChatGPT:{Fore.RESET} {answer}".encode())
+    else:
+        print(f"{Fore.GREEN}ChatGPT: {Style.RESET_ALL}{answer}")
+        messages.append({"role": "assistant", "content": answer})
+
+# Handle CTRL_C grafecully
+def signal_handler(sig, frame):
+    print('\nExiting Client ...')
+    sys.exit(0)
+
+# Define init client variables
+you = subprocess.check_output(['whoami']).decode('utf-8').strip()
+you = you.capitalize()
+gpt_model = 'gpt-3.5-turbo'
+signal.signal(signal.SIGINT, signal_handler)
+openai.api_key = environ['api_key']
+messages = [{"role": "system", "content": "You are a helpful assistant."},]
+
+# Check if you passed an argument. Starting non-conversation mode
+if len(sys.argv) > 1:
+    message = ' '.join(sys.argv[1:])
+    messages.append({"role": "user", "content": message})
+    chat_completion = openai.ChatCompletion.create(model=f"{gpt_model}",messages=messages)
+    answer = chat_completion.choices[0].message.content
+    markdown_check_response()
+else:
+    # You are going into conversation mode
+    message = True
+    while message:
+        message = input(Fore.CYAN + f"{you}: " + Style.RESET_ALL)
+        if message == '':
+            print("Exiting client ...")
+        elif message:
+            messages.append(
+                {"role": "user", "content": message},
+            )
+            chat_completion = openai.ChatCompletion.create(
+                model=f"{gpt_model}",
+                messages=messages
+            )
+            answer = chat_completion.choices[0].message.content
+            markdown_check_response()
+
