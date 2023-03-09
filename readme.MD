@@ -5,7 +5,7 @@ First of all you will need to have an account on https://platform.openai.com/ an
 
 Once you have the key export it as an enviromental variable
 ```bash
-export api_key=<YOUR_API_KEY>
+$ export api_key=<YOUR_API_KEY>
 ```
 
 Ideally you want to include this in your home directory bash or other shell profile as a permanent solution
@@ -64,10 +64,10 @@ You will need:
 - Python 3
 
 ## Install fancy `cat` for Markdown on Mac
-This python adapter to openai API script uses 'mdcat' for parsing ChatGPT responses that have Markdown includeds
+This python client script uses 'mdcat' for parsing ChatGPT responses that have Markdown included
 
 ```bash
-brew install mdcat
+$ brew install mdcat
 ```
 
 - https://github.com/swsnr/mdcat
@@ -78,7 +78,7 @@ Check on author github how to install the tool on different platforms. I have on
 ## Install python dependencies
 
 ```bash
-pip3 install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## Copy this script to your PATH
