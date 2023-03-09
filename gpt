@@ -7,8 +7,16 @@ from os import environ
 # Needed for some linux terminals when using colorama
 init()
 
+# Construct ChatGTP answer
+def prepare_answer(answer=None):
+    messages.append({"role": "user", "content": message})
+    chat_completion = openai.ChatCompletion.create(
+        model=f"{gpt_model}", messages=messages)
+    answer = chat_completion.choices[0].message.content
+    markdown_check_response(answer)
+
 # Markdown check and response
-def markdown_check_response():
+def markdown_check_response(answer):
     if markdown.markdown(answer) != answer:
         subprocess.run(
             ["mdcat"], input=f"{Fore.YELLOW}ChatGPT:{Fore.RESET} {answer}".encode())
@@ -38,11 +46,7 @@ messages = [{"role": "system", "content": "You are a helpful assistant."}, ]
 # Check if you passed an argument. Starting non-conversation mode
 if len(sys.argv) > 1:
     message = ' '.join(sys.argv[1:])
-    messages.append({"role": "user", "content": message})
-    chat_completion = openai.ChatCompletion.create(
-        model=f"{gpt_model}", messages=messages)
-    answer = chat_completion.choices[0].message.content
-    markdown_check_response()
+    prepare_answer()
 else:
     # You are going into conversation mode
     message = True
@@ -51,8 +55,4 @@ else:
         if message == '':
             client_exit()
         elif message:
-            messages.append({"role": "user", "content": message},)
-            chat_completion = openai.ChatCompletion.create(
-                model=f"{gpt_model}", messages=messages)
-            answer = chat_completion.choices[0].message.content
-            markdown_check_response()
+            prepare_answer()
