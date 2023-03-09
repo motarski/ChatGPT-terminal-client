@@ -12,7 +12,7 @@ Ideally you want to include this in your home directory bash or other shell prof
 
 Create bash_profile file in your home directory if it does not exist and add the export
 
-```bash`
+```bash
 $ vi ~/.bash_profile
 export api_key=<YOUR_API_KEY>
 ```
