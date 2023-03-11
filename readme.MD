@@ -1,9 +1,17 @@
 # ChatGPT terminal client
-First of all you will need to have an account on https://platform.openai.com/ and an API Key created
+First of all you need to have an OpenAI account and API secret key created
+
+
+`When you make your OpenAI account, you're given a credit of $18 to start with. Using the most expensive model, that allows the AI to produce around 650,000 words for you. After around four months, the free credits will expire`
+
+
+
+- Open account at https://platform.openai.com/
 
 - Under API Keys -> Create new secret key
 
-Once you have the key export it as an enviromental variable
+Once you have the key export it as an environment variable
+
 ```bash
 $ export api_key=<YOUR_API_KEY>
 ```

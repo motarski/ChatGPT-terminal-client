@@ -4,6 +4,13 @@ import openai, sys, signal, markdown, subprocess
 from colorama import Fore, Style, init
 from os import environ
 
+# OpenAI Settings
+gpt_model = 'gpt-3.5-turbo'         # Your default configured AI assistant
+num_of_samples=1                    # If you want longer paragraph response increase this value (experiment)
+temperature=1.0                     # Controls creativity of prepared answer. Higher temp results in more unpredictable answers
+max_tokens=50                       # Number of tokens (words or subwords) model will generate for response. Truncates response upon reach
+openai.api_key = environ['api_key'] # Your exported OpenAI API secret key
+
 # Needed for some linux terminals when using colorama
 init()
 
@@ -11,7 +18,11 @@ init()
 def prepare_answer(answer=None):
     messages.append({"role": "user", "content": message})
     chat_completion = openai.ChatCompletion.create(
-        model=f"{gpt_model}", messages=messages)
+        model=f"{gpt_model}",
+        n=1,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        messages=messages)
     answer = chat_completion.choices[0].message.content
     markdown_check_response(answer)
 
@@ -38,10 +49,10 @@ def client_exit(sig=None):
 
 # Define init client variables
 you = subprocess.check_output(['whoami']).decode('utf-8').strip().capitalize()
-gpt_model = 'gpt-3.5-turbo'
+messages = [{"role": "system", "content": "ChatBot Ready"}, ]
+
+# Set signal handler
 signal.signal(signal.SIGINT, signal_handler)
-openai.api_key = environ['api_key']
-messages = [{"role": "system", "content": "You are a helpful assistant."}, ]
 
 # Check if you passed an argument. Starting non-conversation mode
 if len(sys.argv) > 1:
