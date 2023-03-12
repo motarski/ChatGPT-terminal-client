@@ -15,7 +15,7 @@ openai.api_key = environ['api_key']     # Your exported as environment variable 
 init()
 
 # Construct ChatBot answer
-def prepare_answer(answer=None):
+def prepare_answer():
     messages.append({"role": "user", "content": message})
     chat_completion = openai.ChatCompletion.create(
         model=f"{gpt_model}",
