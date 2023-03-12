@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 
 import openai, sys, signal, markdown, subprocess
-from colorama import Fore, Style, init
+from colorama import Fore, init
 from os import environ
 
-# OpenAI Settings
-gpt_model = 'gpt-3.5-turbo'         # Your default configured AI assistant
-num_of_samples=1                    # If you want longer paragraph response increase this value (experiment)
-temperature=1.0                     # Controls creativity of prepared answer. Higher temp results in more unpredictable answers
-max_tokens=50                       # Number of tokens (words or subwords) model will generate for response. Truncates response upon reach
-openai.api_key = environ['api_key'] # Your exported OpenAI API secret key
+# OpenAI API parameters
+gpt_model = 'gpt-3.5-turbo'             # Your default configured AI assistant
+num_of_samples=1                        # If you want longer paragraphed answer increase this value (experiment)
+temperature=1.0                         # Controls creativity of prepared answer. Higher temperature will results in more unpredictable answers
+max_tokens=50                           # Number of tokens (words or subwords) model will generate for the answer. Truncates the answer upon set limit
+openai.api_key = environ['api_key']     # Your exported as environment variable OpenAI API secret key
 
 # Needed for some linux terminals when using colorama
 init()
 
-# Construct ChatGTP answer
+# Construct ChatBot answer
 def prepare_answer(answer=None):
     messages.append({"role": "user", "content": message})
     chat_completion = openai.ChatCompletion.create(
@@ -32,10 +32,10 @@ def markdown_check_response(answer):
         subprocess.run(
             ["mdcat"], input=f"{Fore.YELLOW}ChatGPT:{Fore.RESET} {answer}".encode())
     else:
-        print(f"{Fore.GREEN}ChatGPT: {Style.RESET_ALL}{answer}")
+        print(f"{Fore.GREEN}ChatGPT: {Fore.RESET}{answer}")
         messages.append({"role": "assistant", "content": answer})
 
-# Handle CTRL_C grafecully
+# Handle CTRL_C gracefully
 def signal_handler(sig, frame):
     client_exit(sig)
     sys.exit(0)
@@ -47,7 +47,7 @@ def client_exit(sig=None):
     else:
         print('Exiting Client...')
 
-# Define init client variables
+# Define initial client variables
 you = subprocess.check_output(['whoami']).decode('utf-8').strip().capitalize()
 messages = [{"role": "system", "content": "ChatBot Ready"}, ]
 
@@ -62,7 +62,7 @@ else:
     # You are going into conversation mode
     message = True
     while message:
-        message = input(Fore.CYAN + f"{you}: " + Style.RESET_ALL)
+        message = input(Fore.CYAN + f"{you}: " + Fore.RESET)
         if message == '':
             client_exit()
         elif message:

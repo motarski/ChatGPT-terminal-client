@@ -1,10 +1,7 @@
 # ChatGPT terminal client
 First of all you need to have an OpenAI account and API secret key created
 
-
-`When you make your OpenAI account, you're given a credit of $18 to start with. Using the most expensive model, that allows the AI to produce around 650,000 words for you. After around four months, the free credits will expire`
-
-
+When you make your OpenAI account, you're given a credit of $18 to start with. Using the most expensive model, that allows the AI to produce around 650,000 words for you. After around four months, the free credits will expire
 
 - Open account at https://platform.openai.com/
 
