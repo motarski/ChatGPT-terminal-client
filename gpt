@@ -9,11 +9,11 @@ from colorama import Fore, init
 from os import environ
 
 # OpenAI API parameters
-gpt_model = 'gpt-3.5-turbo'               # Your default configured AI assistant
-num_of_samples = 1                        # If you want longer paragraphed answer increase this value (experiment)
-temperature = 1.0                         # Controls creativity of prepared answer. Higher temperature will results in more unpredictable answers
-max_tokens = 500                          # Number of tokens (words or subwords) model will generate for the answer. Truncates the answer upon set limit
-openai.api_key = environ['api_key']       # Your exported as environment variable OpenAI API secret key
+gpt_model = 'gpt-3.5-turbo'
+num_of_samples = 1
+temperature = 1.0
+max_tokens = 500
+openai.api_key = environ['api_key']
 
 # Needed for some linux terminals when using colorama
 init()
@@ -22,11 +22,11 @@ init()
 def prepare_answer():
     messages.append({"role": "user", "content": message})
     chat_completion = openai.ChatCompletion.create(
-        model= gpt_model,
-        n = num_of_samples,
-        temperature = temperature,
-        max_tokens = max_tokens,
-        messages = messages)
+        model=gpt_model,
+        n=num_of_samples,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        messages=messages)
     answer = chat_completion.choices[0].message.content
     markdown_check_response(answer)
 
@@ -73,4 +73,4 @@ else:
             elif message:
                 prepare_answer()
     except EOFError:
-        client_exit()
+        client_exit(1)

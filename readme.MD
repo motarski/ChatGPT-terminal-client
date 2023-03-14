@@ -28,6 +28,22 @@ Save the file and source it.
 $ source ~/.bash_profile
 ```
 
+
+## OpenAI parameters
+
+Can be configured in the code. Experiment with parameters settings for num_of_samples, max_tokens and temperature to observe how AI answers differs 
+
+| Parameter | Description |
+| --- | --- |
+| gpt_model | Your default configured model |
+| num_of_samples | Higher value will produce longer paragraphed answer |
+| temperature | Controls creativity of prepared answer. Higher temperature will results in more unpredictable answers |
+| max_tokens | Number of tokens (words or subwords) model will use to generate the answer. Truncates the answer on limit reach |
+| openai.api_key | Your exported as environment variable OpenAI API secret key |
+
+
+
+
 ## How does it work
 
 
