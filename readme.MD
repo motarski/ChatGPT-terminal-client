@@ -10,7 +10,7 @@ When you make your OpenAI account, you're given a credit of $18 to start with. U
 Once you have the key export it as an environment variable
 
 ```bash
-$ export api_key=<YOUR_API_KEY>
+$ export api_key=YOUR_API_KEY
 ```
 
 Ideally you want to include this in your home directory bash or other shell profile as a permanent solution
@@ -19,7 +19,7 @@ Create bash_profile file in your home directory if it does not exist and add the
 
 ```bash
 $ vi ~/.bash_profile
-export api_key=<YOUR_API_KEY>
+export api_key=YOUR_API_KEY
 ```
 
 Save the file and source it.
@@ -31,7 +31,7 @@ $ source ~/.bash_profile
 
 ## OpenAI parameters
 
-Can be configured in the code. Experiment with parameters settings for num_of_samples, max_tokens and temperature to observe how AI answers differs 
+Can be configured in the code. Experiment with parameters settings for num_of_samples, max_tokens and temperature to observe how AI answers differ
 
 | Parameter | Description |
 | --- | --- |
@@ -45,7 +45,6 @@ Can be configured in the code. Experiment with parameters settings for num_of_sa
 
 
 ## How does it work
-
 
 This python script client is a consumer of the OpenAI API from the terminal. You never need to leave terminal to consult ChatGPT anymore. So if a terminal is your normal habitat this client will make your coding so much faster. It also allows you to pass a question as an argument (Non converstation mode) or you can start the client normally in a (converstation mode)
 
@@ -84,8 +83,8 @@ You will need:
 - Mac or Linux platform
 - Python 3
 
-## Install fancy `cat` for Markdown on Mac
-This python client script uses 'mdcat' for parsing ChatGPT responses that have Markdown included
+## Install fancy cat for Markdown on Mac
+This python client script uses `mdcat` for parsing ChatGPT answers that contain markdown language. Usefull for code syntax highlighting 
 
 ```bash
 $ brew install mdcat
